@@ -49,7 +49,7 @@
             <h3>Mac</h3><span class="tag">Your device</span>
           </div>
           <p>macOS 13 or later, Apple silicon and Intel.</p>
-          <a class="btn disabled" data-asset="LiveMusic.dmg" data-label="Download for Mac">Coming soon</a>
+          <a class="btn secondary" href="download.html?platform=mac" data-asset="LiveMusic.dmg">Download for Mac</a>
           <span class="alt" id="mac-glaze" hidden>or <a href="#" id="mac-glaze-link">get it through Glaze</a></span>
         </article>
 
@@ -59,7 +59,7 @@
             <h3>Windows</h3><span class="tag">Your device</span>
           </div>
           <p>Windows 10 and 11, 64-bit.</p>
-          <a class="btn disabled" data-asset="LiveMusic-Setup.exe" data-label="Download for Windows">Coming soon</a>
+          <a class="btn secondary" href="download.html?platform=windows" data-asset="LiveMusic-Setup.exe">Download for Windows</a>
           <span class="small">First launch: if Windows says "Windows protected your PC", choose More info → Run anyway.</span>
         </article>
 
@@ -69,7 +69,7 @@
             <h3>Android</h3><span class="tag">Your device</span>
           </div>
           <p>Android 8 or later. Works with Android Auto.</p>
-          <a class="btn disabled" data-asset="LiveMusic.apk" data-label="Download for Android">Coming soon</a>
+          <a class="btn secondary" href="download.html?platform=android" data-asset="LiveMusic.apk">Download for Android</a>
           <span class="small">Your phone may ask you to allow installs from your browser the first time.</span>
         </article>
 
@@ -190,7 +190,7 @@
       document.getElementById("mac-glaze").hidden = false;
     }
 
-    // Only files actually attached to the latest release get a working button.
+    // The latest release, for the version number and file sizes.
     fetch("https://api.github.com/repos/" + REPO + "/releases/latest")
       .then((r) => (r.ok ? r.json() : null))
       .catch(() => null)
@@ -200,31 +200,24 @@
         if (version) {
           document.getElementById("version-badge").innerHTML = "<b>Version " + version + "</b> · Free · Mac, Windows &amp; Android";
         }
+        // Buttons always open the download screen; show the size where the file is ready.
         for (const btn of document.querySelectorAll("[data-asset]")) {
           const asset = assets.get(btn.dataset.asset);
-          if (!asset) continue;
-          btn.href = asset.browser_download_url;
-          btn.textContent = btn.dataset.label;
-          btn.classList.remove("disabled");
-          btn.classList.add("secondary");
-          btn.title = btn.dataset.asset + " · " + formatSize(asset.size);
+          if (asset) btn.title = btn.dataset.asset + " · " + formatSize(asset.size);
         }
 
-        // Hero button: straight to this device's download when there is one.
+        // Hero button: this device's download screen.
         const hero = document.getElementById("hero-btn");
         const meta = document.getElementById("hero-meta");
         const mine = card?.querySelector("[data-asset]");
-        if (mine && !mine.classList.contains("disabled")) {
+        if (mine) {
           mine.classList.replace("secondary", "primary");
-          hero.href = mine.href;
+          hero.href = mine.getAttribute("href");
           hero.textContent = "Download for " + NAMES[os];
           const asset = assets.get(mine.dataset.asset);
-          meta.innerHTML = (version ? "Version " + version + " · " : "") + formatSize(asset.size) + ' · <a href="#download">Other devices</a>';
-        } else if (os === "mac" && MAC_GLAZE_LINK) {
-          hero.href = MAC_GLAZE_LINK;
-          hero.textContent = "Get it for Mac in Glaze";
-        } else if (os && NAMES[os]) {
-          meta.innerHTML = "Live Music for " + NAMES[os] + ' is coming soon · <a href="#download">Other devices</a>';
+          meta.innerHTML = (version ? "Version " + version + " · " : "") + (asset ? formatSize(asset.size) + " · " : "") + '<a href="#download">Other devices</a>';
+        } else if (os === "ios") {
+          meta.innerHTML = 'Live Music for iPhone is coming soon · <a href="#download">Other devices</a>';
         }
       });
   </script>
