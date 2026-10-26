@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live Music — Download</title>
+  <meta name="description" content="Download Live Music for Mac, Windows and Android.">
+  <link rel="icon" href="icon.png">
+  <style>
+    :root {
+      --bg: #000;
+      --card: #111113;
+      --border: #26262b;
+      --text: #f4f4f6;
+      --muted: #9a9aa3;
+      --accent: linear-gradient(90deg, #ff4fa3, #a14cff 45%, #5b5bff 70%, #2fd4ff);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 64px 16px 40px;
+    }
+    header { text-align: center; max-width: 560px; }
+    header img { width: 112px; height: 112px; border-radius: 26px; box-shadow: 0 12px 48px rgba(161, 76, 255, 0.35); }
+    h1 { font-size: 44px; line-height: 1.1; margin: 24px 0 8px; letter-spacing: -0.02em; }
+    h1 span { background: var(--accent); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    header p { color: var(--muted); margin: 0; font-size: 18px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      width: 100%;
+      max-width: 960px;
+      margin-top: 48px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .card h2 { margin: 0; font-size: 20px; }
+    .card p { margin: 0 0 14px; color: var(--muted); font-size: 14px; flex: 1; }
+    .btn {
+      display: block;
+      text-align: center;
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #fff;
+      background: var(--accent);
+    }
+    .btn.soon { background: #2a2a30; color: var(--muted); pointer-events: none; }
+    .note { font-size: 12px; color: var(--muted); margin-top: 8px; }
+    footer { margin-top: 56px; color: var(--muted); font-size: 13px; text-align: center; }
+    footer a { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="icon.png" alt="Live Music icon">
+    <h1>Live <span>Music</span></h1>
+    <p>Stream, download and enjoy your music — on your computer and your phone.</p>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <h2>Mac</h2>
+      <p>Installs through Glaze. You'll need Glaze on your Mac first.</p>
+      <a class="btn" href="MAC_GLAZE_LINK">Get it in Glaze</a>
+    </section>
+
+    <section class="card">
+      <h2>Windows</h2>
+      <p>Windows 10 and 11 (64-bit).</p>
+      <a class="btn" href="https://github.com/edgegithuber7/live-music/releases/latest/download/LiveMusic-Setup.exe">Download for Windows</a>
+      <span class="note">If Windows says "Windows protected your PC", choose More info → Run anyway.</span>
+    </section>
+
+    <section class="card">
+      <h2>Android</h2>
+      <p>Android phones. Install the APK directly.</p>
+      <a class="btn" href="https://github.com/edgegithuber7/live-music/releases/latest/download/LiveMusic.apk">Download for Android</a>
+      <span class="note">You may need to allow installs from your browser the first time.</span>
+    </section>
+
+    <section class="card">
+      <h2>iPhone</h2>
+      <p>On its way.</p>
+      <span class="btn soon">Coming soon</span>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://github.com/edgegithuber7/live-music/releases">All versions</a>
+  </footer>
+</body>
+</html>
