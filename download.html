@@ -58,7 +58,8 @@
 
     <p class="others" id="others">
       Need a different version?
-      <a href="download.html?platform=mac">Mac</a>
+      <a href="download.html?platform=mac">Mac (Apple silicon)</a>
+      <a href="download.html?platform=mac-intel">Mac (Intel)</a>
       <a href="download.html?platform=windows">Windows</a>
       <a href="download.html?platform=android">Android</a>
       <a href="changelog.html">What's new</a>
@@ -71,10 +72,20 @@
 
     const PLATFORMS = {
       mac: {
-        name: "Mac",
+        name: "Mac (Apple silicon)",
         asset: "LiveMusic.dmg",
         steps: [
           "Open <b>LiveMusic.dmg</b> from your Downloads folder.",
+          "Drag <b>Live Music</b> into the <b>Applications</b> folder.",
+          "Open Live Music from Applications. The first time, macOS says it can't check the app for malicious software — click <b>Done</b>.",
+          "Open <b>System Settings → Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b> next to Live Music, then confirm. You only need to do this once.",
+        ],
+      },
+      "mac-intel": {
+        name: "Intel Mac",
+        asset: "LiveMusic-Intel.dmg",
+        steps: [
+          "Open <b>LiveMusic-Intel.dmg</b> from your Downloads folder.",
           "Drag <b>Live Music</b> into the <b>Applications</b> folder.",
           "Open Live Music from Applications. The first time, macOS says it can't check the app for malicious software — click <b>Done</b>.",
           "Open <b>System Settings → Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b> next to Live Music, then confirm. You only need to do this once.",
@@ -136,10 +147,10 @@
           if (!asset) {
             $("title").textContent = "Live Music for " + p.name + " is coming soon";
             $("lead").textContent =
-              platform === "mac"
+              (platform === "mac" || platform === "mac-intel")
                 ? "The direct download isn't ready yet. You can get Live Music for Mac through Glaze in the meantime."
                 : "It isn't ready to download just yet. Check back soon, or see what's coming in the changelog.";
-            if (platform === "mac") showGlaze();
+            if (platform === "mac" || platform === "mac-intel") showGlaze();
             return;
           }
 
@@ -150,7 +161,7 @@
           btn.textContent = "Download for " + p.name;
           btn.hidden = false;
           $("fileinfo").textContent = p.asset + " · " + formatSize(asset.size);
-          if (platform === "mac") showGlaze();
+          if (platform === "mac" || platform === "mac-intel") showGlaze();
           showSteps(p);
 
           // Start the download without leaving this page.
